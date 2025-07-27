@@ -1,0 +1,9 @@
+light-ua-gen/
+├── .github/workflows/release.yml
+├── package.json
+├── README.md
+├── src/
+│   └── lightUAgen.js
+└── public/
+    ├── index.html
+    └── mock-link.md
