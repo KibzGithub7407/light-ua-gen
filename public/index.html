@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>LightUAgen – Custom UA Generator</title>
+  <meta name="description" content="Enhanced Custom User-Agent Generator for Via, Pure, Dolphin, Lightning browsers">
+  <link href="https://fonts.googleapis.com/css?family=Fira+Mono:400,500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #f7f3ec;
+      font-family: 'Fira Mono', monospace;
+      color: #222;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 520px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 6px 24px rgba(100,50,0,0.15);
+      padding: 32px 28px 26px 28px;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.2em;
+      color: #e67e22;
+      text-align: center;
+      font-weight: 700;
+    }
+    .desc {
+      font-size: 1.04em;
+      margin-bottom: 15px;
+      text-align: center;
+      color: #7e5f3b;
+    }
+    label {
+      font-size: 1em;
+      font-weight: 500;
+      margin-top: 1.1em;
+      display: block;
+    }
+    select, input[type="checkbox"] {
+      font-family: inherit;
+      font-size: 1em;
+      margin-top: 0.3em;
+      padding: 0.2em 0.55em;
+      border-radius: 6px;
+      border: 1px solid #e3cfa6;
+      background: #faf7f4;
+      color: #653b00;
+    }
+    .ua-box {
+      background: #faf8f5;
+      border: 1px solid #e3cfa6;
+      border-radius: 9px;
+      padding: 1.1em 1em;
+      margin: 1.3em 0 0.8em 0;
+      font-size: 0.94em;
+      word-break: break-all;
+      font-family: 'Fira Mono', monospace;
+      color: #3e2c09;
+      min-height: 57px;
+      transition: border 0.2s;
+    }
+    .ua-actions {
+      text-align: right;
+    }
+    button {
+      margin-top: 10px;
+      background: #e67e22;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 22px;
+      font-size: 1em;
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.17s;
+    }
+    button:active {
+      background: #d35400;
+    }
+    .footer {
+      margin-top: 2em;
+      text-align: center;
+      color: #aa8d7c;
+      font-size: 0.98em;
+    }
+    .copied {
+      color: #27ae60;
+      margin-left: 0.7em;
+      font-weight: 600;
+      font-size: 1em;
+      letter-spacing: 0.01em;
+    }
+    @media (max-width: 600px) {
+      .container { padding: 18px 4vw; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>LightUAgen</h1>
+    <div class="desc">
+      Enhanced Custom User-Agent Generator for Via, Pure, Dolphin, and Lightning browsers.
+    </div>
+    <form id="uaForm">
+      <label>
+        Browser:
+        <select id="browser">
+          <option value="Via">Via</option>
+          <option value="Pure">Pure</option>
+          <option value="Dolphin">Dolphin</option>
+          <option value="Lightning">Lightning</option>
+        </select>
+      </label>
+      <label>
+        Platform:
+        <select id="platform">
+          <option value="android">Android</option>
+          <option value="ios">iOS</option>
+        </select>
+      </label>
+      <label>
+        Engine:
+        <select id="engine">
+          <option value="chrome">Chrome</option>
+          <option value="firefox">Firefox</option>
+        </select>
+      </label>
+      <label>
+        <input type="checkbox" id="desktop" />
+        Desktop Mode Spoof
+      </label>
+      <div class="ua-actions">
+        <button type="button" id="generateBtn">Generate UA</button>
+      </div>
+      <div class="ua-box" id="uaBox"></div>
+      <div class="ua-actions">
+        <button type="button" id="copyBtn">Copy UA</button>
+        <span class="copied" id="copied" style="display:none;">Copied!</span>
+      </div>
+    </form>
+    <div class="footer">
+      <a href="https://github.com/KibzGithub7407/light-ua-gen" target="_blank">GitHub</a> &middot;
+      MIT &middot; <a href="https://kibzgithub7407.github.io/light-ua-gen/">Demo</a>
+    </div>
+  </div>
+  <script type="module">
+    import { generateUA } from "../src/lightUAgen.js";
+    const uaBox = document.getElementById('uaBox');
+    const copied = document.getElementById('copied');
+    function showUA() {
+      const ua = generateUA({
+        browser: document.getElementById('browser').value,
+        platform: document.getElementById('platform').value,
+        engine: document.getElementById('engine').value,
+        desktop: document.getElementById('desktop').checked
+      });
+      uaBox.textContent = ua;
+    }
+    document.getElementById('generateBtn').onclick = showUA;
+    document.getElementById('uaForm').onchange = showUA;
+    showUA();
+    document.getElementById('copyBtn').onclick = function() {
+      navigator.clipboard.writeText(uaBox.textContent);
+      copied.style.display = "inline";
+      setTimeout(()=>{ copied.style.display = "none"; }, 1200);
+    };
+  </script>
+</body>
+</html>
