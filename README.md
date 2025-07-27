@@ -17,6 +17,26 @@
 
 ---
 
+# LightUAgen
+
+Enhanced Custom User Agent Generator for Lightweight Browsers.
+
+## Install
+
+```bash
+npm install light-ua-gen
+```
+
+## Usage
+
+```js
+import { generateUA } from "light-ua-gen";
+
+console.log(generateUA({ browser: "Via", platform: "android", engine: "chrome" }));
+```
+
+[Live Demo](https://kibzgithub7407.github.io/light-ua-gen/)
+
 ## Usage
 
 ### 1. As a Module
