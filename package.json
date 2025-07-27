@@ -1,0 +1,23 @@
+{
+  "name": "light-ua-gen",
+  "version": "1.0.0",
+  "description": "Enhanced Custom User Agent Generator for Lightweight Browsers (Via, Pure, Dolphin, Lightning)",
+  "author": "KibzGithub7407",
+  "license": "MIT",
+  "main": "src/lightUAgen.js",
+  "type": "module",
+  "scripts": {
+    "start": "npx serve public"
+  },
+  "keywords": [
+    "user-agent",
+    "generator",
+    "browser",
+    "android",
+    "lightweight",
+    "spoof",
+    "ua",
+    "chrome",
+    "firefox"
+  ]
+}
