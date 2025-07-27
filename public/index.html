@@ -172,5 +172,45 @@
       setTimeout(()=>{ copied.style.display = "none"; }, 1200);
     };
   </script>
-</body>
+
+<!-- ...existing code... -->
+      <div class="ua-actions" style="margin-top:14px;">
+        <button type="button" id="shareBtn">Share This Config</button>
+        <input id="shareUrl" style="width:90%;margin-top:7px;display:none;" readonly>
+      </div>
+<!-- ...existing code... -->
+  <script type="module">
+    import { generateUA } from "../src/lightUAgen.js";
+    // ...existing code...
+    // URL builder
+    function buildShareURL() {
+      const p = new URLSearchParams({
+        b: document.getElementById('browser').value,
+        pl: document.getElementById('platform').value,
+        e: document.getElementById('engine').value,
+        d: document.getElementById('desktop').checked ? 1 : 0
+      });
+      return `${location.origin + location.pathname}?${p}`;
+    }
+
+    function applyParams() {
+      const u = new URLSearchParams(location.search);
+      if (u.has('b')) document.getElementById('browser').value = u.get('b');
+      if (u.has('pl')) document.getElementById('platform').value = u.get('pl');
+      if (u.has('e')) document.getElementById('engine').value = u.get('e');
+      if (u.has('d')) document.getElementById('desktop').checked = u.get('d') === "1";
+    }
+    applyParams();
+    showUA();
+
+    document.getElementById('shareBtn').onclick = function() {
+      const url = buildShareURL();
+      const shareInput = document.getElementById('shareUrl');
+      shareInput.value = url;
+      shareInput.style.display = 'block';
+      shareInput.select();
+      document.execCommand("copy");
+    };
+  </script>
+  </body>
 </html>
